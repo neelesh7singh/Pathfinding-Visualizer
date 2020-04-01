@@ -1,0 +1,45 @@
+body {
+    padding: 0px;
+    margin: 0px;
+}
+
+.main {
+    /* background-color: azure  ; */
+    border-style: none;
+    height: 90vh;
+    width: 100vw;
+    margin-top: 10vh;
+}
+
+.center {
+    margin: 0px auto;
+    padding: 0px;
+    height: fit-content;
+    width: 1520px;
+    font-size: 0px;
+}
+
+.unit {
+    display: inline-block;
+    border-style: solid;
+    border-width: 1px;
+    height: 17px;
+    width: 17px;
+    margin: 1px 0px 0px 1px;
+}
+
+.start {
+    background-color: red;
+}
+
+.end {
+    background-color: green;
+}
+
+.visited {
+    background-color: blue;
+}
+
+.path {
+    background-color: yellow;
+}
