@@ -16,7 +16,8 @@ for (let i = 0; i < 32; i++) {
         //adding event listner to ever node ...............
         // ......TODO......
         // create a function for calling the algos.
-        document.querySelector(".node" + i + "" + j).addEventListener("click", () => dfs(7, 10, 27, 70))
+
+        document.querySelector(".node" + i + "" + j).addEventListener("click", () => callAll())
 
         // ...... hard coding the start and end point...............................to be deleted later on
         if (i == 7 && j == 10) {
@@ -32,6 +33,10 @@ for (let i = 0; i < 32; i++) {
 
 // universal variable for path
 pathFound = false
+var visited = []
+var path = []
+a = 0
+b = 0
 
 // algo for DFS.........................................................................................................
 //.........TODO........
@@ -43,29 +48,33 @@ function dfs(i, j, fi, fj) {
                 pathFound = true
                 return
             }
-            document.querySelector(".node" + i + "" + j).classList.add("visited")
-
+            // document.querySelector(".node" + i + "" + j).classList.add("visited")
+            visited.push(".node" + i + "" + j)
             dfs(i - 1, j, fi, fj) //up
             if (pathFound) {
-                document.querySelector(".node" + i + "" + j).classList.add("path")
+                // document.querySelector(".node" + i + "" + j).classList.add("path")
+                 path.push(".node" + i + "" + j)
                 return
             }
 
             dfs(i, j + 1, fi, fj) //right
             if (pathFound) {
-                document.querySelector(".node" + i + "" + j).classList.add("path")
+                // document.querySelector(".node" + i + "" + j).classList.add("path")
+                path.push(".node" + i + "" + j)
                 return
             }
 
             dfs(i + 1, j, fi, fj) //down
             if (pathFound) {
-                document.querySelector(".node" + i + "" + j).classList.add("path")
+                // document.querySelector(".node" + i + "" + j).classList.add("path")
+                path.push(".node" + i + "" + j)
                 return
             }
 
             dfs(i, j - 1, fi, fj) //left  
             if (pathFound) {
-                document.querySelector(".node" + i + "" + j).classList.add("path")
+                // document.querySelector(".node" + i + "" + j).classList.add("path")
+                path.push(".node" + i + "" + j)
                 return
             }
         } else return
@@ -76,7 +85,7 @@ function dfs(i, j, fi, fj) {
 // function to check wether i,j are inside the grid and are not visited before..............................
 function isValid(i, j) {
     if (i >= 0 && i < 32 && j >= 0 && j < 76) {
-        if (!document.querySelector(".node" + i + "" + j).classList.contains("visited")) {
+        if (visited.indexOf(".node" + i + "" + j) == -1 ) {
             return true
         } else return false
     } else return false
@@ -84,3 +93,30 @@ function isValid(i, j) {
 // ...........................................................................................................
 
 // dfs(7,10,27,70)  first two arguments are the starting indices and the next two are the final indices
+
+function callAll()
+{
+    dfs(7, 10, 27, 70)
+    setInterval(fillPath, 10);
+}
+
+// dfs(7, 10, 27, 70)
+
+function fillPath()
+{
+
+    if(a<visited.length)
+    {
+        document.querySelector(visited[a]).classList.add("visited")
+        a++
+        return   
+    }
+    
+
+    if(b >= path.length)
+    {
+        clearInterval()
+    }
+    document.querySelector(path[b]).classList.add("path")
+    b++
+}
