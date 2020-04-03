@@ -98,13 +98,16 @@ function isValid(i, j) {
 
 // dfs(7,10,27,70)  first two arguments are the starting indices and the next two are the final indices
 
+// function to call be called after the button is pressed ..................
 function callAll() {
     dfs(7, 10, 27, 70)
     setInterval(fillPath, 10);
 }
+// .........................................................................
 
 // dfs(7, 10, 27, 70)
 
+// ..................function to fill path with animation insted of filling in one instance
 function fillPath() {
     if (a < visited.length) {
         document.querySelector(visited[a]).classList.add("visited")
@@ -114,11 +117,14 @@ function fillPath() {
 
     if (b >= path.length) {
         clearInterval()
+        return
     }
     document.querySelector(path[b]).classList.add("path")
     b++
 }
+// ..........................................................................................
 
+// ...............................................function to add wall
 function addWall(i,j){
     if(isDown)
     {
@@ -126,3 +132,43 @@ function addWall(i,j){
     }
     
 }
+// ...................................................................
+
+
+// ........................................BFS starts here on....................................................................
+
+// .............................................. queue class..............................
+class Queue 
+{
+    constructor()
+    {
+        this.items = [] 
+    }
+
+    // enqueue function 
+    enqueue(element) 
+    {     
+        // adding element to the queue 
+        this.items.push(element); 
+    } 
+
+    dequeue() 
+    { 
+        // removing element from the queue 
+        // returns underflow when called  
+        // on empty queue 
+        if(this.isEmpty()) 
+            return "Underflow"
+       
+        toReturn = this.items[0]
+        this.items.shift()
+        return toReturn
+    }
+
+    // how to use this class
+    // var queue = new Queue(); 
+    // queue.enqueue(10); 
+    // queue.dequeue();
+}
+// ..........................................................................................
+

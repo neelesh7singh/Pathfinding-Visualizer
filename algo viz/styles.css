@@ -38,7 +38,15 @@ body {
     height: 17px;
     width: 17px;
     margin: 1px 0px 0px 1px;
+    position: static;
 }
+
+/* .unit:hover{
+    height: 19px;
+    width: 19px;
+    position: absolute;
+    overflow: visible;
+} */
 
 .start {
     background-color: red;
