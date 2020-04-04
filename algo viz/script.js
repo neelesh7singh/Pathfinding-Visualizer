@@ -99,9 +99,18 @@ function isValid(i, j) {
 // dfs(7,10,27,70)  first two arguments are the starting indices and the next two are the final indices
 
 // function to call be called after the button is pressed ..................
-function callAll() {
-    dfs(7, 10, 27, 70)
-    setInterval(fillPath, 10);
+function callAll(s) {
+    if(s == "dfs")
+    {
+        dfs(7, 10, 27, 70)
+        setInterval(fillPath, 10);
+    }
+    if(s == "bfs")
+    {
+        bfs(7,10,27,70)
+        setInterval(fillPath, 10);
+    }
+    
 }
 // .........................................................................
 
@@ -157,10 +166,7 @@ class Queue
         // removing element from the queue 
         // returns underflow when called  
         // on empty queue 
-        if(this.isEmpty()) 
-            return "Underflow"
-       
-        toReturn = this.items[0]
+        var toReturn = this.items[0]
         this.items.shift()
         return toReturn
     }
@@ -181,43 +187,68 @@ function bfs(i,j,fi,fj)
     while(!foundEnd(i,j,fi,fj,p))
     {
         p = queue.dequeue()
-        for(var i=0; i < moves.length; i++)
+        // console.log(p)
+        for(var a=0; a < moves.length; a++)
         {
-            check = p + moves[i]
+            check = p + moves[a]
+            // console.log(check)
             if(isValid_bfs(i,j,check))
             {
                 queue.enqueue(check)
             }
         }
     }
+    if(foundEnd) fillPathArr(i,j,p)
+}
+
+function fillPathArr(i,j,p)
+{
+    path.push(".node" + i + "j" + j)
+    for(var a = 0; a < p.length; a++)
+    {
+        if(p[a] == "U") i = i-1
+        if(p[a] == "D") i = i+1
+        if(p[a] == "R") j = j+1
+        if(p[a] == "L") j = j-1
+        path.push(".node" + i + "j" + j)
+    }
 }
 
 function foundEnd(i,j,fi,fj,p)
 {
-    for(var i = 0; i < p.length; i++)
+    for(var a = 0; a < p.length; a++)
     {
-        if(p[i] == "U") i -= 1
-        if(p[i] == "D") i += 1
-        if(p[i] == "R") j += 1
-        if(p[i] == "L") j -= 1
+        // console.log(p.length)
+        // console.log(p[a])
+        if(p[a] == "U") i = i-1
+        if(p[a] == "D") i = i+1
+        if(p[a] == "R") j = j+1
+        if(p[a] == "L") j = j-1
     }
-    if(i==fi && j==fj) return true
+    if(i==fi && j==fj) 
+    {
+        return true
+    }
     else return false
 }
 
 function isValid_bfs(i,j,check)
 {
-    for(var i = 0; i < p.length; i++)
+    for(var a = 0; a < check.length; a++)
     {
-        if(p[i] == "U") i -= 1
-        if(p[i] == "D") i += 1
-        if(p[i] == "R") j += 1
-        if(p[i] == "L") j -= 1
+        if(check[a] == "U") i = i-1 
+        if(check[a] == "D") i = i+1
+        if(check[a] == "R") j = j+1
+        if(check[a] == "L") j = j-1
     }
     if (i >= 0 && i < 32 && j >= 0 && j < 76)
     {
-        path.push(".node" + i + "j" + j)
-        return true
+        if (visited.indexOf(".node" + i + "j" + j) == -1 && !document.querySelector(".node" + i + "j" + j).classList.contains("wall")) 
+        {
+            visited.push(".node" + i + "j" + j)
+            return true
+        }
+        // return true
     }
     else return false
 }
