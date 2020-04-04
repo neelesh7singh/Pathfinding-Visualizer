@@ -178,16 +178,46 @@ function bfs(i,j,fi,fj)
     var moves = ["U","R","D","L"]
     queue.enqueue("")
     p = ""
-    while(!foundEnd(p))
+    while(!foundEnd(i,j,fi,fj,p))
     {
         p = queue.dequeue()
         for(var i=0; i < moves.length; i++)
         {
             check = p + moves[i]
-            if(isValid_bfs(check))
+            if(isValid_bfs(i,j,check))
             {
                 queue.enqueue(check)
             }
         }
     }
+}
+
+function foundEnd(i,j,fi,fj,p)
+{
+    for(var i = 0; i < p.length; i++)
+    {
+        if(p[i] == "U") i -= 1
+        if(p[i] == "D") i += 1
+        if(p[i] == "R") j += 1
+        if(p[i] == "L") j -= 1
+    }
+    if(i==fi && j==fj) return true
+    else return false
+}
+
+function isValid_bfs(i,j,check)
+{
+    for(var i = 0; i < p.length; i++)
+    {
+        if(p[i] == "U") i -= 1
+        if(p[i] == "D") i += 1
+        if(p[i] == "R") j += 1
+        if(p[i] == "L") j -= 1
+    }
+    if (i >= 0 && i < 32 && j >= 0 && j < 76)
+    {
+        path.push(".node" + i + "j" + j)
+        return true
+    }
+    else return false
 }
