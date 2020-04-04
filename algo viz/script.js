@@ -1,6 +1,3 @@
-// ...........................................Just the code for DFS......................................................
-
-
 // center is the div containing all the nodes which are given unique class 
 // -> "node01,node02,...nodeij",here i,j are row and index
 var container = document.querySelector(".center")
@@ -32,71 +29,18 @@ for (let i = 0; i < 32; i++) {
 }
 
 // universal variable for path
-pathFound = false
+pathFound = false 
+
+// variables used for animating the path
 var visited = []
 var path = []
 a = 0
 b = 0
+
+// used for checking mouse down to create wall
 isDown = false
 document.addEventListener("mousedown",function (){isDown = true})
 document.addEventListener("mouseup",function (){isDown = false})
-
-
-// algo for DFS.........................................................................................................
-//.........TODO........
-// insted of adding class inside the function create a list and add them outside the class so that you can use await ans async
-function dfs(i, j, fi, fj) {
-    if (isValid(i, j)) {
-        if (!pathFound) {
-            if (i == fi && j == fj) {
-                pathFound = true
-                return
-            }
-            // document.querySelector(".node" + i + "" + j).classList.add("visited")
-            if(!document.querySelector(".node" + i + "j" + j).classList.contains("start")) visited.push(".node" + i + "j" + j)
-            dfs(i - 1, j, fi, fj) //up
-            if (pathFound) {
-                // document.querySelector(".node" + i + "" + j).classList.add("path")
-                if(!document.querySelector(".node" + i + "j" + j).classList.contains("start")) path.push(".node" + i + "j" + j)
-                return
-            }
-
-            dfs(i, j + 1, fi, fj) //right
-            if (pathFound) {
-                // document.querySelector(".node" + i + "" + j).classList.add("path")
-                if(!document.querySelector(".node" + i + "j" + j).classList.contains("start")) path.push(".node" + i + "j" + j)
-                return
-            }
-
-            dfs(i + 1, j, fi, fj) //down
-            if (pathFound) {
-                // document.querySelector(".node" + i + "" + j).classList.add("path")
-                if(!document.querySelector(".node" + i + "j" + j).classList.contains("start")) path.push(".node" + i + "j" + j)
-                return
-            }
-
-            dfs(i, j - 1, fi, fj) //left  
-            if (pathFound) {
-                // document.querySelector(".node" + i + "" + j).classList.add("path")
-                if(!document.querySelector(".node" + i + "j" + j).classList.contains("start")) path.push(".node" + i + "j" + j)
-                return
-            }
-        } else return
-    } else return
-}
-//............................................................................................................................
-
-// function to check wether i,j are inside the grid and are not visited before..............................
-function isValid(i, j) {
-    if (i >= 0 && i < 32 && j >= 0 && j < 76) {
-        if (visited.indexOf(".node" + i + "j" + j) == -1 && !document.querySelector(".node" + i + "j" + j).classList.contains("wall")) {
-            return true
-        } else return false
-    } else return false
-}
-// ...........................................................................................................
-
-// dfs(7,10,27,70)  first two arguments are the starting indices and the next two are the final indices
 
 // function to call be called after the button is pressed ..................
 function callAll(s) {
@@ -113,8 +57,6 @@ function callAll(s) {
     
 }
 // .........................................................................
-
-// dfs(7, 10, 27, 70)
 
 // ..................function to fill path with animation insted of filling in one instance
 function fillPath() {
@@ -144,7 +86,61 @@ function addWall(i,j){
 // ...................................................................
 
 
-// ........................................BFS starts here on....................................................................
+
+// ______________________________________________DFS starts here_________________________________________________________
+// algo for DFS
+function dfs(i, j, fi, fj) {
+    if (isValid(i, j)) {
+        if (!pathFound) {
+            if (i == fi && j == fj) {
+                pathFound = true
+                return
+            }
+            if(!document.querySelector(".node" + i + "j" + j).classList.contains("start")) visited.push(".node" + i + "j" + j)
+
+            dfs(i - 1, j, fi, fj) //up
+            if (pathFound) {
+                if(!document.querySelector(".node" + i + "j" + j).classList.contains("start")) path.push(".node" + i + "j" + j)
+                return
+            }
+
+            dfs(i, j + 1, fi, fj) //right
+            if (pathFound) {
+                if(!document.querySelector(".node" + i + "j" + j).classList.contains("start")) path.push(".node" + i + "j" + j)
+                return
+            }
+
+            dfs(i + 1, j, fi, fj) //down
+            if (pathFound) {
+                if(!document.querySelector(".node" + i + "j" + j).classList.contains("start")) path.push(".node" + i + "j" + j)
+                return
+            }
+
+            dfs(i, j - 1, fi, fj) //left  
+            if (pathFound) {
+                if(!document.querySelector(".node" + i + "j" + j).classList.contains("start")) path.push(".node" + i + "j" + j)
+                return
+            }
+        } else return
+    } else return
+}
+//dfs algo ends here
+
+// function to check wether i,j are inside the grid and are not visited before(for dfs)......................
+function isValid(i, j) {
+    if (i >= 0 && i < 32 && j >= 0 && j < 76) {
+        if (visited.indexOf(".node" + i + "j" + j) == -1 && !document.querySelector(".node" + i + "j" + j).classList.contains("wall")) {
+            return true
+        } else return false
+    } else return false
+}
+// ...........................................................................................................
+
+// dfs(7,10,27,70)  first two arguments are the starting indices and the next two are the final indices
+
+// ________________________________________________DFS ends here________________________________________________________________
+
+// ________________________________________________BFS starts here on___________________________________________________________
 
 // .............................................. Queue class..............................
 class Queue 
@@ -171,6 +167,12 @@ class Queue
         return toReturn
     }
 
+    size()
+    {
+        // returns the size of queue
+        return this.items.length
+    }
+
     // how to use this class
     // var queue = new Queue(); 
     // queue.enqueue(10); 
@@ -178,6 +180,7 @@ class Queue
 }
 // ..........................................................................................
 
+// algo for bfs
 function bfs(i,j,fi,fj)
 {
     var queue = new Queue()
@@ -186,21 +189,22 @@ function bfs(i,j,fi,fj)
     p = ""
     while(!foundEnd(i,j,fi,fj,p))
     {
+        if(queue.size() == 0) break
         p = queue.dequeue()
-        // console.log(p)
         for(var a=0; a < moves.length; a++)
         {
             check = p + moves[a]
-            // console.log(check)
             if(isValid_bfs(i,j,check))
             {
                 queue.enqueue(check)
             }
         }
     }
-    if(foundEnd) fillPathArr(i,j,p)
+    if(foundEnd(i,j,fi,fj,p)) fillPathArr(i,j,p)
+    else alert("Path Not Found")
 }
 
+// function to fill the final path array....................
 function fillPathArr(i,j,p)
 {
     path.push(".node" + i + "j" + j)
@@ -213,13 +217,13 @@ function fillPathArr(i,j,p)
         path.push(".node" + i + "j" + j)
     }
 }
+// ..........................................................
 
+// this function checks if the path leads to end..................
 function foundEnd(i,j,fi,fj,p)
 {
     for(var a = 0; a < p.length; a++)
     {
-        // console.log(p.length)
-        // console.log(p[a])
         if(p[a] == "U") i = i-1
         if(p[a] == "D") i = i+1
         if(p[a] == "R") j = j+1
@@ -231,7 +235,9 @@ function foundEnd(i,j,fi,fj,p)
     }
     else return false
 }
+// ...............................................................
 
+// this function checks if the path is valid and if valid it adds that path to "visited" array.............................
 function isValid_bfs(i,j,check)
 {
     for(var a = 0; a < check.length; a++)
@@ -248,7 +254,15 @@ function isValid_bfs(i,j,check)
             visited.push(".node" + i + "j" + j)
             return true
         }
-        // return true
     }
     else return false
 }
+// .........................................................................................................................
+
+// ________________________________________________BFS ends here________________________________________________________________
+
+// ________________________________________________A* starts here_______________________________________________________________
+
+
+
+// ________________________________________________A* ends here_________________________________________________________________
