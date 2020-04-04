@@ -137,7 +137,7 @@ function addWall(i,j){
 
 // ........................................BFS starts here on....................................................................
 
-// .............................................. queue class..............................
+// .............................................. Queue class..............................
 class Queue 
 {
     constructor()
@@ -172,3 +172,22 @@ class Queue
 }
 // ..........................................................................................
 
+function bfs(i,j,fi,fj)
+{
+    var queue = new Queue()
+    var moves = ["U","R","D","L"]
+    queue.enqueue("")
+    p = ""
+    while(!foundEnd(p))
+    {
+        p = queue.dequeue()
+        for(var i=0; i < moves.length; i++)
+        {
+            check = p + moves[i]
+            if(isValid_bfs(check))
+            {
+                queue.enqueue(check)
+            }
+        }
+    }
+}
