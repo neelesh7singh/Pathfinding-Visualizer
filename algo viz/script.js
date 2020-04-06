@@ -263,6 +263,117 @@ function isValid_bfs(i,j,check)
 
 // ________________________________________________A* starts here_______________________________________________________________
 
+var rows = 32
+var colms = 76
+var grid = new Array(rows)
+for(var i = 0; i < colms; i++) grid[i] = new Array(colms)
 
+function spot(i, j)
+{
+    this.i = i;
+    this.j = j;
+    this.f = 0;
+    this.g = 0;
+    this.h = 0;
+    this.previous = undefined;
+}
 
+for(var i = 0; i < rows; i++)
+{
+    for(var j = 0; j < colms; j++)
+    {
+        grid[i][j] = new spot()
+    }
+}
+
+function removeFromArray(arr,elt)
+{
+    for(var i = arr.length-1; i >=0; i--)
+    {
+        if(arr[i] == elt)
+        {
+            arr.splice(i,1);
+        }
+    }
+}
+
+function isValid_a(i, j) {
+    if (i >= 0 && i < 32 && j >= 0 && j < 76) 
+    {
+        if (!document.querySelector(".node" + i + "j" + j).classList.contains("wall")) {
+            return true
+        } else return false
+    } else return false
+}
+
+function heuristic(a,b)
+{
+    // var d = Math.hypot(b.i - a.i, b.j - a.j)
+    var d = abs(a.i - b.i) + abs(a.j - b.j)
+    return d
+}
+
+var openSet = []
+var closeSet = []
+var shortestPath = []
+
+var start = grid[7][10]
+var end = grid[27][70] 
+
+openSet.push(start)
+
+while(openSet.length > 0)
+{
+    var winner = 0
+    for (var i = 0; i < openSet.length; i++) if(openSet[i].f < openSet[winner].f) winner = i
+
+    current = openSet[winner]
+    if(current == end) 
+    {
+        shortestPath = []
+        var temp = current
+        path.push(temp)
+        while(temp.previous)
+        {
+            path.push(temp.previous)
+            temp = temp.previous
+        }
+        break;
+    }
+
+    removeFromArray(openSet,current)
+    closeSet.push(current)
+
+    var neighbors = []
+    var i = current.i
+    var j = current.j
+    if(isValid_a(i+1,j)) neighbors.push(grid[i+1][j])
+    if(isValid_a(i-1,j)) neighbors.push(grid[i-1][j])
+    if(isValid_a(i,j+1)) neighbors.push(grid[i][j+1])
+    if(isValid_a(i,j-1)) neighbors.push(grid[i][j-1])
+    
+    for(var i = 0; i < neighbors.lengt; i++)
+    {
+        var neighbor = neighbors[i]
+        if(closeSet.includes(neighbor)) continue
+        
+        var tempG = current.g + 1
+        if(openSet.includes(neighbor))
+        {
+            if(tempG < neighbor.g)
+            {
+                neighbor.g = tempG
+            }
+        }
+        else
+        {
+            neighbor.g = tempG
+            openSet.push(neighbor)
+        }
+
+        neighbor.h = heuristic(neighbor,end)
+        neighbor.f = neighbor.g + neighbor.h
+        neighbor.previous = current
+    }
+}
 // ________________________________________________A* ends here_________________________________________________________________
