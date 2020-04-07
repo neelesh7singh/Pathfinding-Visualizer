@@ -48,14 +48,6 @@ body {
     overflow: visible;
 } */
 
-.start {
-    background-color: red;
-}
-
-.end {
-    background-color: green;
-}
-
 .visited {
     background-color: blue;
 }
@@ -66,4 +58,12 @@ body {
 
 .wall {
     background-color: black;
+}
+
+.start {
+    background-color: red;
+}
+
+.end {
+    background-color: green;
 }
