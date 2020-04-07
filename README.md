@@ -1,8 +1,8 @@
 # Pathfinding-Visualizer(under development)
 ## Algo completed till now -
- **DFS**
- **BFS**
- **A*(almost)**
+ DFS<br />
+ BFS<br />
+ A*(almost)
 ## TODO-
  **Dijkstra**
  **Maze generating algos**
