@@ -4,6 +4,6 @@
  BFS<br />
  A*(almost)
 ## TODO-
- **Dijkstra**
- **Maze generating algos**
- **Work on frontend**
+ Dijkstra<br />
+ Maze generating algos<br />
+ Work on frontend<br />
