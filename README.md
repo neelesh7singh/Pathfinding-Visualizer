@@ -2,7 +2,7 @@
 ## Algo completed till now -
  DFS<br />
  BFS<br />
- A*(almost)
+ A*(not optimized)
 ## TODO-
  Dijkstra<br />
  Maze generating algos<br />
