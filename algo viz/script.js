@@ -54,7 +54,12 @@ function callAll(s) {
         setInterval(fillPath, 10);
     }
     if (s == "aStar") {
-        aStar(7,10,27,70)
+        aStar(7, 10, 27, 70)
+        setInterval(fillPath_A, 10);
+    }
+    if(s == "dijkstra")
+    {
+        dijkstra(7,10,27,70)
         setInterval(fillPath_A, 10);
     }
 }
@@ -232,12 +237,7 @@ function isValid_bfs(i, j, check) {
 }
 // ________________________________________________BFS ends here________________________________________________________________
 
-// ________________________________________________A* starts here_______________________________________________________________
-
-var rows = 32
-var colms = 76
-var grid = new Array(rows)
-for (var i = 0; i < colms; i++) grid[i] = new Array(colms)
+// ______________________________________Common functions for both A* and Dijkstra______________________________________________
 
 class spot {
     constructor(i, j) {
@@ -247,17 +247,24 @@ class spot {
         this.g = 0
         this.h = 0
         this.previous = undefined
+        this.dis = Number.MAX_VALUE
     }
 }
+// this list is used in dijikstra
+var Q = []
 
-fills = []
+var rows = 32
+var colms = 76
+var grid = new Array(rows)
+for (var i = 0; i < colms; i++) grid[i] = new Array(colms)
 
 for (var i = 0; i < rows; i++) {
     for (var j = 0; j < colms; j++) {
         grid[i][j] = new spot(i, j)
+        Q.push(grid[i][j])
     }
 }
-
+// remove element elt from array arr
 function removeFromArray(arr, elt) {
     for (var i = arr.length - 1; i >= 0; i--) {
         if (arr[i] == elt) {
@@ -266,6 +273,7 @@ function removeFromArray(arr, elt) {
     }
 }
 
+// checks the validity of a node
 function isValid_a(i, j) {
     if (i >= 0 && i < 32 && j >= 0 && j < 76) {
         if (!document.querySelector(".node" + i + "j" + j).classList.contains("wall")) {
@@ -274,11 +282,7 @@ function isValid_a(i, j) {
     } else return false
 }
 
-function heuristic(a, b) {
-    var d = Math.abs(a.i - b.i) + Math.abs(a.j - b.j)
-    return d
-}
-
+// function used to animate the path
 function fillPath_A() {
     if (a < fills.length) {
         document.querySelector(fills[a]).classList.add("visited")
@@ -286,23 +290,27 @@ function fillPath_A() {
         return
     }
 
-    // if (a < fills.length && fills[a][1] == 0) {
-    //     document.querySelector(fills[a][0]).classList.add("visited")
-    //     a++
-    //     return
-    // }
-
     if (b >= path.length) {
         clearInterval()
         return
     }
-    
+
     document.querySelector(".node" + path[b].i + "j" + path[b].j).classList.add("path")
     b++
 }
+// _____________________________________________________________________________________________________________________________
 
+// ________________________________________________A* starts here_______________________________________________________________
 
+fills = []
 
+// distance between 2 points
+function heuristic(a, b) {
+    var d = Math.abs(a.i - b.i) + Math.abs(a.j - b.j)
+    return d
+}
+
+// main function for A*
 function aStar(i, j, fi, fj) {
     var openSet = []
     var closeSet = []
@@ -313,13 +321,18 @@ function aStar(i, j, fi, fj) {
 
     openSet.push(start)
     fills.push(".node" + start.i + "j" + start.j)
+
     while (openSet.length > 0) {
+
+        // find the minimum in the array 
         var winner = 0
-        for (var i = 0; i < openSet.length; i++)
+        for (var i = 0; i < openSet.length; i++) 
         {
             if (openSet[i].f < openSet[winner].f) winner = i
         }
         current = openSet[winner]
+
+        // check if end is reached
         if (current.i == end.i && current.j == end.j) {
             shortestPath = []
             var temp = current
@@ -331,17 +344,10 @@ function aStar(i, j, fi, fj) {
             break;
         }
 
-        // console.log(openSet.length)
         removeFromArray(openSet, current)
-        // console.log(openSet.length)
-
         closeSet.push(current)
-        
-        // x = []
-        // x.push(".node" + current.i + "j" + current.j)
-        // x.push(1)
-        // fills.push(x)
 
+        // check for valid neighbors and giving them there values
         var neighbors = []
         var i = current.i
         var j = current.j
@@ -350,12 +356,9 @@ function aStar(i, j, fi, fj) {
         if (isValid_a(i, j + 1)) neighbors.push(grid[i][j + 1])
         if (isValid_a(i, j - 1)) neighbors.push(grid[i][j - 1])
 
-        // console.log(neighbors.length)
         for (var i = 0; i < neighbors.length; i++) {
-            // console.log("this runs")
             var neighbor = neighbors[i]
-            if (closeSet.includes(neighbor)) 
-            {
+            if (closeSet.includes(neighbor)) {
                 continue
             }
 
@@ -374,8 +377,68 @@ function aStar(i, j, fi, fj) {
             neighbor.f = neighbor.g + neighbor.h
             neighbor.previous = current
         }
-        // console.log(openSet.length)
     }
-    console.log(path)
 }
 // ________________________________________________A* ends here_________________________________________________________________
+
+// _____________________________________________Dijkstra starts here____________________________________________________________
+
+// main function for Dijkstra
+function dijkstra(i,j,fi,fj)
+{
+
+    start = grid[i][j]
+    end = grid[fi][fj]
+    start.dis = 0
+
+    while(Q.length > 0)
+    {
+        // find the minimum
+        var winner = 0
+        for (var i = 0; i < Q.length; i++) {
+            if (Q[i].dis < Q[winner].dis) winner = i
+        }
+        current = Q[winner]
+
+        removeFromArray(Q,current)
+        fills.push(".node" + current.i + "j" + current.j)
+
+        // check if end is reached
+        if (current.i == end.i && current.j == end.j) 
+        {
+            var temp = current
+            path.push(temp.previous)
+            while(temp.previous)
+            {
+                path.push(temp.previous)
+                temp = temp.previous
+            }
+            console.log(path)
+            break;
+        }
+
+        // checking for valid neighbors and giving them the distance from starting
+        var neighbors = []
+        var i = current.i
+        var j = current.j
+        if (isValid_a(i + 1, j)) neighbors.push(grid[i + 1][j])
+        if (isValid_a(i - 1, j)) neighbors.push(grid[i - 1][j])
+        if (isValid_a(i, j + 1)) neighbors.push(grid[i][j + 1])
+        if (isValid_a(i, j - 1)) neighbors.push(grid[i][j - 1])
+
+        for (var i = 0; i < neighbors.length; i++) {
+            var neighbor = neighbors[i]
+
+            var tempDis = current.dis + 1
+            
+            if (tempDis < neighbor.dis) 
+            {
+                neighbor.dis = tempDis
+                neighbor.previous = current
+            }
+        }
+    }
+
+}
+
+// ______________________________________________Dijkstra ends here______________________________________________________________
