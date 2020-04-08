@@ -3,7 +3,8 @@
  DFS<br />
  BFS<br />
  A*(not optimized)
-## TODO-
  Dijkstra<br />
+ 
+## TODO-
  Maze generating algos<br />
  Work on frontend<br />
