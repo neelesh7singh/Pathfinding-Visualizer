@@ -2,7 +2,7 @@
 ## Algo completed till now -
  DFS<br />
  BFS<br />
- A*(not optimized)
+ A*(not optimized)<br/>
  Dijkstra<br />
  
 ## TODO-
