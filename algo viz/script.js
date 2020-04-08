@@ -280,17 +280,17 @@ function heuristic(a, b) {
 }
 
 function fillPath_A() {
-    if (a < fills.length && fills[a][1] == 1) {
-        document.querySelector(fills[a][0]).classList.add("visited")
+    if (a < fills.length) {
+        document.querySelector(fills[a]).classList.add("visited")
         a++
         return
     }
 
-    if (a < fills.length && fills[a][1] == 0) {
-        document.querySelector(fills[a][0]).classList.add("visited")
-        a++
-        return
-    }
+    // if (a < fills.length && fills[a][1] == 0) {
+    //     document.querySelector(fills[a][0]).classList.add("visited")
+    //     a++
+    //     return
+    // }
 
     if (b >= path.length) {
         clearInterval()
@@ -312,10 +312,7 @@ function aStar(i, j, fi, fj) {
     var end = grid[fi][fj]
 
     openSet.push(start)
-    x = []
-    x.push(".node" + start.i + "j" + start.j)
-    x.push(0)
-    fills.push(x)
+    fills.push(".node" + start.i + "j" + start.j)
     while (openSet.length > 0) {
         var winner = 0
         for (var i = 0; i < openSet.length; i++)
@@ -340,10 +337,10 @@ function aStar(i, j, fi, fj) {
 
         closeSet.push(current)
         
-        x = []
-        x.push(".node" + current.i + "j" + current.j)
-        x.push(1)
-        fills.push(x)
+        // x = []
+        // x.push(".node" + current.i + "j" + current.j)
+        // x.push(1)
+        // fills.push(x)
 
         var neighbors = []
         var i = current.i
@@ -370,10 +367,7 @@ function aStar(i, j, fi, fj) {
             } else {
                 neighbor.g = tempG
                 openSet.push(neighbor)
-                x = []
-                x.push(".node" + neighbor.i + "j" + neighbor.j)
-                x.push(0)
-                fills.push(x)
+                fills.push(".node" + neighbor.i + "j" + neighbor.j)
             }
 
             neighbor.h = heuristic(neighbor, end)
