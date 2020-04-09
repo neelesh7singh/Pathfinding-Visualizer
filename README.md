@@ -5,6 +5,9 @@
  A*(not optimized)<br/>
  Dijkstra<br />
  
+ ## Working on -
+ Maze generating algos(Recursive Division)<br />
+ 
 ## TODO-
- Maze generating algos<br />
+ Add functionality<br />
  Work on frontend<br />
