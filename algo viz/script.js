@@ -442,3 +442,47 @@ function dijkstra(i,j,fi,fj)
 }
 
 // ______________________________________________Dijkstra ends here______________________________________________________________
+
+// ______________________________________Recursive Division for maze generation__________________________________________________
+
+// main recursive function 
+recursiveDivision(width,height,x,y)
+{
+    var orientation
+    var dx
+    var dy
+    if(width > height)
+    {
+        orientation = 'vertical'
+    }
+    if(width < height)
+    {
+        orientation = 'horizontal'
+    }
+    if(width == height)
+    {
+        orientation = Math.random() < 0.5 ? 'vertical' : 'horizontal';
+    }
+
+    if(width < 2 || height < 2)
+    {
+        return
+    }
+
+    if(orientation == 'vertical' )
+    {
+        dx = Math.floor(Math.random()*width)
+        drawWall(x,y,orientation,dx)
+        recursiveDivision(x+dx,height,x,y)
+        recursiveDivision(width-(x+dx),height,x+dx+1,y)
+    }
+    if(orientation == 'horizontal' )
+    {
+        dy = Math.floor(Math.random()*height)
+        drawWall(x,y,orientation,dy)
+        recursiveDivision(width,y+dy,x,y)
+        recursiveDivision(width,height-(y+dy),x,y+dy+1)
+    }
+}
+
+// _________________________________________________Maze generation ends here____________________________________________________
