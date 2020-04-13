@@ -1,7 +1,7 @@
 // center is the div containing all the nodes which are given unique class 
 // -> "node01,node02,...nodeij",here i,j are row and index
 var container = document.querySelector(".center")
-for (let i = 0; i < 32; i++) // 32 = vh/20
+for (let i = 0; i < 32; i++) // 32 = vh/20 (90% of vh)
 {
     for (let j = 0; j < 76; j++) //76 = vw/20
     {
@@ -25,15 +25,20 @@ for (let i = 0; i < 32; i++) {
     }
 }
 
-// universal variable for path
+// universal variable for path (used in dfs)
 pathFound = false
 
 // variables used for animating the path
 var visited = []
 var path = []
-a = 0
-b = 0
-w = 0
+var a = 0
+var b = 0
+var w = 0
+
+var si = 7
+var sj = 10
+var fi = 27
+var fj = 70
 
 // used for checking mouse down to create wall
 isDown = false
@@ -48,26 +53,28 @@ document.addEventListener("mouseup", function () {
 function callAll(s) {
     if (s == "dfs") {
         dfs(7, 10, 27, 70)
-        setInterval(fillPath, 10);
+        d = setInterval(fillPath, 10);
     }
     if (s == "bfs") {
         bfs(7, 10, 27, 70)
-        setInterval(fillPath, 10);
+        d = setInterval(fillPath, 10);
     }
     if (s == "aStar") {
         aStar(7, 10, 27, 70)
-        setInterval(fillPath_A, 10);
+        d = setInterval(fillPath_A, 10);
     }
-    if(s == "dijkstra")
-    {
-        dijkstra(7,10,27,70)
-        setInterval(fillPath_A, 10);
+    if (s == "dijkstra") {
+        dijkstra(7, 10, 27, 70)
+        d = setInterval(fillPath_A, 10);
     }
-    if(s == "wall")
-    {
-        recursiveDivision(0,0,76,32)
-        console.log(walls)
-        setInterval(fillWalls,10);
+    if (s == "wall") {
+        recursiveDivision(0, 0, 76, 32)
+        for (var i = walls.length - 1; i >= 0; i--) {
+            if (walls[i] == ".node" + fi + "j" + fj) {
+                walls.splice(i, 1);
+            }
+        }
+        d = setInterval(fillWalls, 10);
     }
 }
 
@@ -80,7 +87,7 @@ function fillPath() {
     }
 
     if (b >= path.length) {
-        clearInterval()
+        clearInterval(d)
         return
     }
     document.querySelector(path[b]).classList.add("path")
@@ -259,6 +266,8 @@ class spot {
 }
 // this list is used in dijikstra
 var Q = []
+var fills = []
+
 
 var rows = 32
 var colms = 76
@@ -299,7 +308,7 @@ function fillPath_A() {
     }
 
     if (b >= path.length) {
-        clearInterval()
+        clearInterval(d)
         return
     }
 
@@ -309,8 +318,6 @@ function fillPath_A() {
 // _____________________________________________________________________________________________________________________________
 
 // ________________________________________________A* starts here_______________________________________________________________
-
-fills = []
 
 // distance between 2 points
 function heuristic(a, b) {
@@ -330,13 +337,11 @@ function aStar(i, j, fi, fj) {
     openSet.push(start)
     fills.push(".node" + start.i + "j" + start.j)
 
-    while (openSet.length > 0) 
-    {
+    while (openSet.length > 0) {
 
         // find the minimum in the array 
         var winner = 0
-        for (var i = 0; i < openSet.length; i++) 
-        {
+        for (var i = 0; i < openSet.length; i++) {
             if (openSet[i].f < openSet[winner].f) winner = i
         }
         current = openSet[winner]
@@ -393,15 +398,13 @@ function aStar(i, j, fi, fj) {
 // _____________________________________________Dijkstra starts here____________________________________________________________
 
 // main function for Dijkstra
-function dijkstra(i,j,fi,fj)
-{
+function dijkstra(i, j, fi, fj) {
 
     start = grid[i][j]
     end = grid[fi][fj]
     start.dis = 0
 
-    while(Q.length > 0)
-    {
+    while (Q.length > 0) {
         // find the minimum
         var winner = 0
         for (var i = 0; i < Q.length; i++) {
@@ -410,19 +413,21 @@ function dijkstra(i,j,fi,fj)
         current = Q[winner]
 
         // check if no path is possible
-        if(current.dis == Number.MAX_VALUE) break
+        if (current.dis == Number.MAX_VALUE) 
+        {
+            console.log("this happans")
+            break
+        }
 
 
-        removeFromArray(Q,current)
+        removeFromArray(Q, current)
         fills.push(".node" + current.i + "j" + current.j)
 
         // check if end is reached
-        if (current.i == end.i && current.j == end.j) 
-        {
+        if (current.i == end.i && current.j == end.j) {
             var temp = current
             path.push(temp.previous)
-            while(temp.previous)
-            {
+            while (temp.previous) {
                 path.push(temp.previous)
                 temp = temp.previous
             }
@@ -443,9 +448,8 @@ function dijkstra(i,j,fi,fj)
             var neighbor = neighbors[i]
 
             var tempDis = current.dis + 1
-            
-            if (tempDis < neighbor.dis) 
-            {
+
+            if (tempDis < neighbor.dis) {
                 neighbor.dis = tempDis
                 neighbor.previous = current
             }
@@ -458,105 +462,143 @@ function dijkstra(i,j,fi,fj)
 
 // ______________________________________Recursive Division for maze generation__________________________________________________
 
+walls = []
+
 // main recursive function 
 // i = no. of colm and j = no. of rows
-walls = []
-toRemoveWall = []
-
-function recursiveDivision(i,j,width,height)
-{
+function recursiveDivision(i, j, width, height) {
     var orientation
     var dx
     var dy
 
-    if(width > height)
-    {
+    if (width > height) {
         orientation = 'vertical'
     }
-    if(width < height)
-    {
+    if (width < height) {
         orientation = 'horizontal'
     }
-    if(width == height)
-    {
+    if (width == height) {
         orientation = Math.random() < 0.5 ? 'vertical' : 'horizontal';
     }
 
-    if(width < 8 || height < 8)
-    {
+    if (width < 8 || height < 8) {
         return
     }
 
-    if(orientation == 'vertical')
-    {
-        dx = Math.floor(Math.random()*(width-7)) + 4
-        drawWall(i,j,orientation,dx)
-        recursiveDivision(i,j,dx+1,height)
-        recursiveDivision(i+dx+1,j,width-(dx+1),height)
+    if (orientation == 'vertical') {
+        dx = Math.floor(Math.random() * (width - 7)) + 4
+        drawWall(i, j, orientation, dx)
+        recursiveDivision(i, j, dx + 1, height)
+        recursiveDivision(i + dx + 1, j, width - (dx + 1), height)
     }
-    if(orientation == 'horizontal')
-    {
-        dy = Math.floor(Math.random()*(height-7)) + 4 
-        drawWall(i,j,orientation,dy)
-        recursiveDivision(i,j,width,dy+1)
-        recursiveDivision(i,j+dy+1,width,height-(dy+1))
+    if (orientation == 'horizontal') {
+        dy = Math.floor(Math.random() * (height - 7)) + 4
+        drawWall(i, j, orientation, dy)
+        recursiveDivision(i, j, width, dy + 1)
+        recursiveDivision(i, j + dy + 1, width, height - (dy + 1))
     }
 }
 
-function drawWall(i,j,orientation,d)
-{
-    if(orientation == 'vertical')
-    {
+function drawWall(i, j, orientation, d) {
+    if (orientation == 'vertical') {
         i += d
         var len = 0
-        while(j < 32 && j >= 0 && !walls.includes(".node" + j + "j" + i))
-        {
+        while (j < 32 && j >= 0 && !walls.includes(".node" + j + "j" + i)) {
+            // if(j == fi && i == fj) continue
+            // if(j == si && i == sj) continue
+            // if(document.querySelector(".node" + j + "j" + i).classList.contains("end")) continue
+            // if(document.querySelector(".node" + j + "j" + i).classList.contains("start")) continue
             walls.push(".node" + j + "j" + i)
             len++
             j++
         }
         j--
-        var skip = Math.floor(Math.random()*len)
-        removeFromArray(walls,".node" + (j - skip) + "j" + i)
-        var skip = Math.floor(Math.random()*len)
-        removeFromArray(walls,".node" + (j - skip) + "j" + i)
-        var skip = Math.floor(Math.random()*len)
-        removeFromArray(walls,".node" + (j - skip) + "j" + i)
+        var skip = Math.floor(Math.random() * len)
+        removeFromArray(walls, ".node" + (j - skip) + "j" + i)
+        var skip = Math.floor(Math.random() * len)
+        removeFromArray(walls, ".node" + (j - skip) + "j" + i)
+        var skip = Math.floor(Math.random() * len)
+        removeFromArray(walls, ".node" + (j - skip) + "j" + i)
     }
 
-    if(orientation == 'horizontal')
-    {
+    if (orientation == 'horizontal') {
         j += d
         var len = 0
-        while(i < 76 && i >= 0 && !walls.includes(".node" + j + "j" + i))
-        {
+        while (i < 76 && i >= 0 && !walls.includes(".node" + j + "j" + i)) {
+            // if(j == fi && i == fj) continue
+            // if(j == si && i == sj) continue
+            // if(document.querySelector(".node" + j + "j" + i).classList.contains("end")) continue
+            // if(document.querySelector(".node" + j + "j" + i).classList.contains("start")) continue
             walls.push(".node" + j + "j" + i)
             len++
             i++
         }
         i--
-        var skip = Math.floor(Math.random()*len)
-        removeFromArray(walls,".node" + j + "j" + (i - skip))
-        var skip = Math.floor(Math.random()*len)
-        removeFromArray(walls,".node" + j + "j" + (i - skip))
-        var skip = Math.floor(Math.random()*len)
-        removeFromArray(walls,".node" + j + "j" + (i - skip))
+        var skip = Math.floor(Math.random() * len)
+        removeFromArray(walls, ".node" + j + "j" + (i - skip))
+        var skip = Math.floor(Math.random() * len)
+        removeFromArray(walls, ".node" + j + "j" + (i - skip))
+        var skip = Math.floor(Math.random() * len)
+        removeFromArray(walls, ".node" + j + "j" + (i - skip))
     }
 }
 
-function fillWalls()
-{
-    if(w < walls.length)
-    {
+function fillWalls() {
+    if (w < walls.length) {
         document.querySelector(walls[w]).classList.add("wall")
         w++
         return
-    }
-    else
-    {
-        clearInterval()
+    } else {
+        clearInterval(d)
         return
     }
 }
 
 // _________________________________________________Maze generation ends here____________________________________________________
+
+// _____________________________________________functions for functionality______________________________________________________
+
+function clearAll() 
+{
+    visited = []
+    path = []
+    walls = []
+    fills = []
+    Q = []
+
+
+    a = 0
+    b = 0
+    w = 0
+    for (let i = 0; i < 32; i++) // 32 = vh/20 (90% of vh)
+    {
+        for (let j = 0; j < 76; j++) //76 = vw/20
+        {
+            el = document.querySelector(".node" + i + "j" + j)
+            if(el.classList.contains("wall"))
+            {
+                el.classList.remove("wall")
+            }
+            if(el.classList.contains("visited"))
+            {
+                el.classList.remove("visited")
+            }
+            if(el.classList.contains("path"))
+            {
+                el.classList.remove("path")
+            }
+
+        }
+    }
+
+    grid = new Array(rows)
+    for (var i = 0; i < colms; i++) grid[i] = new Array(colms)
+
+    for (var i = 0; i < rows; i++) {
+        for (var j = 0; j < colms; j++) {
+            grid[i][j] = new spot(i, j)
+            // for dijikstra
+            Q.push(grid[i][j])
+        }
+    }
+}
