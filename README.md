@@ -7,7 +7,7 @@
  Maze generating algos(Recursive Division)<br />
  
  ## Working on -
+ Add functionality<br />
  
 ## TODO-
- Add functionality<br />
  Work on frontend<br />
