@@ -4,9 +4,9 @@
  BFS<br />
  A*(not optimized)<br/>
  Dijkstra<br />
+ Maze generating algos(Recursive Division)<br />
  
  ## Working on -
- Maze generating algos(Recursive Division)<br />
  
 ## TODO-
  Add functionality<br />
