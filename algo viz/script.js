@@ -13,6 +13,8 @@ for (let i = 0; i < 32; i++) {
 
         //adding event listner to ever node 
         document.querySelector(".node" + i + "j" + j).addEventListener("mousemove", () => addWall(i, j))
+        document.querySelector(".node" + i + "j" + j).addEventListener("click", () => toggleWall(i, j))
+
 
         // hard coding the start and end point   (to be deleted later on)
         if (i == 7 && j == 10) {
@@ -27,6 +29,8 @@ for (let i = 0; i < 32; i++) {
 
 // universal variable for path (used in dfs)
 pathFound = false
+changeStart = false
+changeEnd = false
 
 // variables used for animating the path
 var visited = []
@@ -52,19 +56,19 @@ document.addEventListener("mouseup", function () {
 // function to call be called after the button is pressed
 function callAll(s) {
     if (s == "dfs") {
-        dfs(7, 10, 27, 70)
+        dfs(si, sj, fi, fj)
         d = setInterval(fillPath, 10);
     }
     if (s == "bfs") {
-        bfs(7, 10, 27, 70)
+        bfs(si, sj, fi, fj)
         d = setInterval(fillPath, 10);
     }
     if (s == "aStar") {
-        aStar(7, 10, 27, 70)
+        aStar(si, sj, fi, fj)
         d = setInterval(fillPath_A, 10);
     }
     if (s == "dijkstra") {
-        dijkstra(7, 10, 27, 70)
+        dijkstra(si, sj, fi, fj)
         d = setInterval(fillPath_A, 10);
     }
     if (s == "wall") {
@@ -99,7 +103,52 @@ function addWall(i, j) {
     if (isDown) {
         document.querySelector(".node" + i + "j" + j).classList.add("wall")
     }
+}
 
+function toggleStart(s)
+{
+    if(s == "start")
+    {
+        changeStart = true
+    }
+
+    if(s == "end")
+    {
+        changeEnd = true
+    }
+}
+
+function toggleWall(i,j)
+{
+
+    el = document.querySelector(".node" + i + "j" + j)
+    if(changeStart)
+    {
+        tr = document.querySelector(".node" + si + "j" + sj)
+        tr.classList.remove("start")
+        el.classList.add("start")
+        si = i
+        sj = j
+        changeStart = false
+        return
+    }
+
+    if(changeEnd)
+    {
+        tr = document.querySelector(".node" + fi + "j" + fj)
+        tr.classList.remove("end")
+        el.classList.add("end")
+        fi = i
+        fj = j
+        changeEnd = false
+        return
+    }
+
+    if(el.classList.contains("wall"))
+        {
+            el.classList.remove("wall")
+        }
+    else el.classList.add("wall")
 }
 
 
@@ -556,7 +605,7 @@ function fillWalls() {
 
 // _________________________________________________Maze generation ends here____________________________________________________
 
-// _____________________________________________functions for functionality______________________________________________________
+// __________________________________________________some other functions________________________________________________________
 
 function clearAll() 
 {
@@ -565,7 +614,6 @@ function clearAll()
     walls = []
     fills = []
     Q = []
-
 
     a = 0
     b = 0
@@ -579,6 +627,45 @@ function clearAll()
             {
                 el.classList.remove("wall")
             }
+            if(el.classList.contains("visited"))
+            {
+                el.classList.remove("visited")
+            }
+            if(el.classList.contains("path"))
+            {
+                el.classList.remove("path")
+            }
+
+        }
+    }
+
+    grid = new Array(rows)
+    for (var i = 0; i < colms; i++) grid[i] = new Array(colms)
+
+    for (var i = 0; i < rows; i++) {
+        for (var j = 0; j < colms; j++) {
+            grid[i][j] = new spot(i, j)
+            // for dijikstra
+            Q.push(grid[i][j])
+        }
+    }
+}
+
+function clearPath()
+{
+    visited = []
+    path = []
+    fills = []
+    Q = []
+
+    a = 0
+    b = 0
+
+    for (let i = 0; i < 32; i++) // 32 = vh/20 (90% of vh)
+    {
+        for (let j = 0; j < 76; j++) //76 = vw/20
+        {
+            el = document.querySelector(".node" + i + "j" + j)
             if(el.classList.contains("visited"))
             {
                 el.classList.remove("visited")
