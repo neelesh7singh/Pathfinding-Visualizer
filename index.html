@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Pathfinding Visualizer</title>
+    <!-- Favicon -->
+    <link rel='icon' href='src/favicon.ico' type='image/x-icon' />
+    <!-- CSS -->
+    <link rel="stylesheet" href="styles.css">
+    <!-- jquery -->
+    <script src="https://code.jquery.com/jquery-3.5.0.js"
+        integrity="sha256-r/AaFHrszJtwpe+tHyNi/XCfMxYpbsRg2Uqn0x3s2zc=" crossorigin="anonymous"></script>
+    <!-- Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Baloo+Bhaina+2:wght@500&display=swap" rel="stylesheet">
+
+</head>
+
+<body>
+    <div id="preloader">
+        <div id="status">&nbsp;</div>
+    </div>
+    <div class="container">
+        <div class="navBar">
+
+            <div class="topBar">
+                <h1 class="titleContent">Pathfinding Visualizer</h1>
+                <a href="#" class="butn" onclick="callAll('dfs')">DFS</a>
+                <a href="#" class="butn" onclick="callAll('bfs')">BFS</a>
+                <a href="#" class="butn" onclick="callAll('dijkstra')">Dijkstra</a>
+                <a href="#" class="butn" onclick="callAll('aStar')">A*</a>
+                <a href="#" class="butn" onclick="callAll('wall')">Create Walls</a>
+                <a href="#" class="butn" onclick="clearAll()">Clear All</a>
+                <a href="#" class="butn" onclick="clearPath()">Clear Path</a>
+                <a href="#" class="butn" onclick="toggleStart('start')">Shift Start</a>
+                <a href="#" class="butn" onclick="toggleStart('end')">Shift End</a>
+                <div style="clear: both;"></div>
+            </div>
+
+            <div class="bottomBar">
+                <ul class="guid">
+                    <li>
+                        <div class="unit visited negativeMargin"></div>
+                        Visited Block
+                    </li>
+                    <li>
+                        <div class="unit start negativeMargin"></div>
+                        Start Block
+                    </li>
+                    <li>
+                        <div class="unit end negativeMargin"></div>
+                        End Block
+                    </li>
+                    <li>
+                        <div class="unit path negativeMargin"></div>
+                        Final Path
+                    </li>
+                    <li>
+                        <div class="unit wall negativeMargin"></div>
+                        Wall
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="main">
+            <div class="center">
+                <!-- <div class="unit"></div>  -->
+            </div>
+        </div>
+    </div>
+</body>
+
+<script src="script.js"></script>
+
+</html>

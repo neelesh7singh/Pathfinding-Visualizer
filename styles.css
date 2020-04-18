@@ -1,0 +1,231 @@
+body {
+    padding: 0px;
+    margin: 0px;
+    font-family: 'Baloo Bhaina 2', cursive;
+}
+button{
+    margin: 0px;
+    padding: 0px;
+}
+
+a{
+    margin: 0px;
+    padding: 0px;
+}
+
+#preloader{
+    background-color: #f1f2f3;
+    position: fixed;
+    top: 0px;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    z-index: 999;
+}
+
+#status{
+    background-image: url("src/preloader.gif");
+    background-repeat: no-repeat;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    height: 250px;
+    width: 286px;
+    margin-top: -125px;
+    margin-left: -143px;
+    z-index: 9999;
+}
+
+.container {
+    position: relative;
+    height: 100vh;
+    width: 100vw;
+}
+
+.navBar{
+    height: 15vh;
+}
+
+.topBar{
+    width: 100%;
+    height: 45px;
+    padding-top: 5px;
+    background-color: #30475e;
+}
+
+.titleContent{
+    display: inline-block;
+    font-weight: normal;
+    color: white;
+    margin: -5px 5px 0px 5px;
+    float: left;
+    height: 40px;
+    padding: 0px;
+    font-size: 30px;
+}
+
+.butn {
+    font-family: 'Baloo Bhaina 2', cursive;
+    text-align: center;
+    text-decoration: none;
+    color: white;
+    font-size: 17px;
+    border: 0px;
+    border-radius: 4px;
+    display: inline-block;
+    width: 8%;
+    height: 30px;
+    float: left;
+    margin: 0px;
+    padding-top: 3px;
+    transition: all .2s ease-in-out;    
+}
+
+.butn:hover
+{
+    background-color: white;
+    color: #30475e;
+}
+
+.guid{
+    text-align: center;
+}
+
+.guid li{
+    margin: 0px 70px;
+    display: inline-block;
+}
+
+.main {
+    position: absolute;
+    border-style: none;
+    height: 85vh;
+    width: 100vw;
+    top: 15vh;
+}
+
+.center {
+    margin: 0px auto;
+    padding: 0px;
+    height: fit-content;
+    width: 1520px;
+    font-size: 0px;
+}
+
+.unit {
+    display: inline-block;
+    border-style: solid;
+    border-color: rgb(20, 19, 19);
+    border-width: 1px 0px 0px 1px;
+    height: 19px;
+    width: 19px;
+    margin: 0px 0px 0px 0px;
+    position: static;
+    transition: all .2s ease-in-out;
+}
+
+.visited {
+    background-color: #6983aa;
+    animation-name: visitedAnimation;
+    animation-duration: .7s;
+    transition: all .2s ease-in-out;
+}
+
+@keyframes visitedAnimation{
+    0%{
+        transform: scale(.3);
+        background-color: #f2ed6f;
+        border-radius: 100%;
+    }
+    25%{
+        transform: scale(.6);
+        background-color: #f2ed6f;
+        border-radius: 50%;
+    }
+    50%{
+        background-color: #80d3cf;
+    }
+    75%{
+        transform: scale(1.2);
+        background-color: #8bc2c1;
+    }
+    100%{
+        transform: scale(1.0);
+        background-color: #6983aa;
+    }
+}
+
+.path {
+    background-color: #a0de59;
+    animation-name: pathAnimation;
+    animation-duration: .7s;
+    transition: all .2s ease-in-out;
+}
+
+@keyframes pathAnimation{
+    0%{
+        transform: scale(.3);
+        background-color: #a0de59;
+        border-radius: 100%;
+    }
+    50%{
+        background-color: #a0de59;
+    }
+    75%{
+        transform: scale(1.2);
+        background-color: #a0de59;
+    }
+    100%{
+        transform: scale(1.0);
+        background-color: #a0de59;
+    }
+}
+
+.wall {
+    background-color: rgb(20, 19, 19);
+    animation-name: wallAnimation;
+    animation-duration: .7s;
+}
+
+@keyframes wallAnimation{
+    0%{
+        transform: scale(.3);
+        background-color: rgb(20, 19, 19);
+    }
+    50%{
+        transform: scale(1.3);
+        background-color: rgb(20, 19, 19);
+    }
+    75%{
+        transform: scale(1.2);
+        background-color: rgb(20, 19, 19);
+    }
+    100%{
+        transform: scale(1.0);
+        background-color: rgb(20, 19, 19);
+    }
+}
+
+.start {
+    background-color: red;
+    transition: all .2s ease-in-out;
+}
+
+.end {
+    background-color: green;
+    transition: all .2s ease-in-out;
+}
+
+.bottomBorder{
+    border-width: 1px 0px 1px 1px;
+}
+
+.rightBorder{
+    width: 18px;
+    border-width: 1px 1px 0px 1px;
+}
+
+.negativeMargin{
+    height: 18px;
+    margin-bottom: -3px;
+}
