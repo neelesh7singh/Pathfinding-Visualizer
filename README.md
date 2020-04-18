@@ -1,6 +1,6 @@
 # Pathfinding Visualizer
 A visualization tool for various pathfinding algorithms.<br/>
-You can access it here (use Google Chrome!): 
+You can access it here (use Google Chrome!): https://neelesh7singh.github.io/Pathfinding-Visualizer/
 ## Algorithms->
  The Algorithms visualised by this project are -<br/>
  
