@@ -3,12 +3,9 @@ $(window).on('load', function () {
     $('#preloader').delay(350).fadeOut();
     setTimeout(startAll, 100)
 })
-var vh = $(window).height()
-var vw = $(window).width()
 
-vh = Math.floor(vh * .85)
-var rows = Math.floor(vh/20)
-var colms = Math.floor(vw/20)
+var rows = 30
+var colms = 76
 
 // center is the div containing all the nodes which are given unique class 
 // -> "node01,node02,...nodeij",here i,j are row and index
