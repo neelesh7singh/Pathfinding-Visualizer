@@ -95,6 +95,7 @@ document.addEventListener("mouseup", function () {
 // function to call be called after the button is pressed
 function callAll(s) {
     if (s == "dfs") {
+        pathFound = false
         dfs(si, sj, fi, fj)
         d = setInterval(fillPath, 10);
     }
@@ -636,6 +637,7 @@ function fillWalls() {
 
 // function to clear everything including the walls
 function clearAll() {
+    pathFound = false
     visited = []
     path = []
     walls = []
@@ -677,6 +679,7 @@ function clearAll() {
 
 // function to remove everything except the walls
 function clearPath() {
+    pathFound = false
     visited = []
     path = []
     fills = []
