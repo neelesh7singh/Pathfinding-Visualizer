@@ -2,7 +2,7 @@ $(window).on('load', function () {
     $('#status').fadeOut();
     $('#preloader').delay(350).fadeOut();
     setTimeout(startAll, 100)
-// })
+})
 // var vh = $(window).height()
 // var vw = $(window).width()
 
