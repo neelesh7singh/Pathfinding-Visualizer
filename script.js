@@ -3,19 +3,29 @@ $(window).on('load', function () {
     $('#preloader').delay(350).fadeOut();
     setTimeout(startAll, 100)
 })
-// var vh = $(window).height()
-// var vw = $(window).width()
 
-// vh = Math.floor(vh * .85)
-// var rows = Math.floor(vh/20)
-// var colms = Math.floor(vw/20)
 
 var rows = 30
 var colms = 76
 
+// console.log("" + w - 1 + "px")
+
 // center is the div containing all the nodes which are given unique class 
 // -> "node01,node02,...nodeij",here i,j are row and index
 function startAll() {
+    var vh = $(window).height()
+    var vw = $(window).width()
+    vh = Math.floor(vh * .85)
+    // var rows = Math.floor(vh/20)
+    // var colms = Math.floor(vw/20)
+
+    var rows = 30
+    var colms = 76
+    s = ''
+
+    var wi = Math.floor(vw / colms)
+    var hi = Math.floor(vh / rows)
+
     var container = document.querySelector(".center")
     for (let i = 0; i < rows; i++) // 32 = vh/20 (85% of vh)
     {
@@ -30,15 +40,24 @@ function startAll() {
             //adding event listner to ever node 
             document.querySelector(".node" + i + "j" + j).addEventListener("mousemove", () => addWall(i, j))
             document.querySelector(".node" + i + "j" + j).addEventListener("click", () => toggleWall(i, j))
+            s = wi - 1 + "px"
+            console.log(s)
+            $(".node" + i + "j" + j).width(s)
+            $(".node" + i + "j" + j).height(hi-1+'px')
 
-            if(i == 29)
-            {
+            if (i == 29) {
                 document.querySelector(".node" + i + "j" + j).classList.add("bottomBorder")
+                s = wi - 1 + "px"
+                $(".node" + i + "j" + j).width(s)
+                $(".node" + i + "j" + j).height(hi-2 + "px")
+
             }
 
-            if(j == 75)
-            {
+            if (j == 75) {
                 document.querySelector(".node" + i + "j" + j).classList.add("rightBorder")
+                s = wi - 2 + "px"
+                $(".node" + i + "j" + j).width(s)
+                $(".node" + i + "j" + j).height(hi-1 + "px")
             }
             // hard coding the start and end point   (to be deleted later on)
             if (i == 7 && j == 10) {
