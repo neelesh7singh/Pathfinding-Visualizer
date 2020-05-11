@@ -125,7 +125,7 @@ a{
 }
 
 .visited {
-    background-color: #6983aa;
+    background-color: #0779e4;
     animation-name: visitedAnimation;
     animation-duration: .7s;
     transition: all .2s ease-in-out;
@@ -134,12 +134,12 @@ a{
 @keyframes visitedAnimation{
     0%{
         transform: scale(.3);
-        background-color: #f2ed6f;
+        background-color: yellow;
         border-radius: 100%;
     }
     25%{
         transform: scale(.6);
-        background-color: #f2ed6f;
+        background-color: yellow;
         border-radius: 50%;
     }
     50%{
@@ -147,11 +147,11 @@ a{
     }
     75%{
         transform: scale(1.2);
-        background-color: #8bc2c1;
+        background-color: #509de6;
     }
     100%{
         transform: scale(1.0);
-        background-color: #6983aa;
+        background-color: #0779e4;
     }
 }
 
