@@ -156,7 +156,7 @@ a{
 }
 
 .path {
-    background-color: #a0de59;
+    background-color: #8feb1c;
     animation-name: pathAnimation;
     animation-duration: .7s;
     transition: all .2s ease-in-out;
@@ -165,19 +165,19 @@ a{
 @keyframes pathAnimation{
     0%{
         transform: scale(.3);
-        background-color: #a0de59;
+        background-color: #7db538;
         border-radius: 100%;
     }
     50%{
-        background-color: #a0de59;
+        background-color: #83c92c;
     }
     75%{
         transform: scale(1.2);
-        background-color: #a0de59;
+        background-color: #a8ff3e;
     }
     100%{
         transform: scale(1.0);
-        background-color: #a0de59;
+        background-color: #8feb1c;
     }
 }
 
