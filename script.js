@@ -5,8 +5,10 @@ $(window).on('load', function () {
 })
 
 
-var rows = 30
-var colms = 76
+// var rows = 30
+// var colms = 76
+var rows = 25
+var colms = 50
 
 // console.log("" + w - 1 + "px")
 
@@ -19,8 +21,8 @@ function startAll() {
     // var rows = Math.floor(vh/20)
     // var colms = Math.floor(vw/20)
 
-    var rows = 30
-    var colms = 76
+    var rows = 25
+    var colms = 50
     s = ''
 
     var wi = Math.floor(vw / colms)
@@ -41,30 +43,29 @@ function startAll() {
             document.querySelector(".node" + i + "j" + j).addEventListener("mousemove", () => addWall(i, j))
             document.querySelector(".node" + i + "j" + j).addEventListener("click", () => toggleWall(i, j))
             s = wi - 1 + "px"
-            console.log(s)
+            // console.log(s)
             $(".node" + i + "j" + j).width(s)
-            $(".node" + i + "j" + j).height(hi-1+'px')
+            $(".node" + i + "j" + j).height(hi - 1 + 'px')
 
-            if (i == 29) {
+            if (i == 24) {
                 document.querySelector(".node" + i + "j" + j).classList.add("bottomBorder")
                 s = wi - 1 + "px"
                 $(".node" + i + "j" + j).width(s)
-                $(".node" + i + "j" + j).height(hi-2 + "px")
+                $(".node" + i + "j" + j).height(hi - 2 + "px")
 
             }
 
-            if (j == 75) {
+            if (j == 49) {
                 document.querySelector(".node" + i + "j" + j).classList.add("rightBorder")
                 s = wi - 2 + "px"
                 $(".node" + i + "j" + j).width(s)
-                $(".node" + i + "j" + j).height(hi-1 + "px")
+                $(".node" + i + "j" + j).height(hi - 1 + "px")
             }
             // hard coding the start and end point   (to be deleted later on)
-            if (i == 7 && j == 10) {
+            if (i == 3 && j == 7) {
                 document.querySelector(".node" + i + "j" + j).classList.add("start")
             }
-
-            if (i == 27 && j == 70) {
+            if (i == 20 && j == 45) {
                 document.querySelector(".node" + i + "j" + j).classList.add("end")
             }
         }
@@ -97,10 +98,10 @@ var a = 0
 var b = 0
 var w = 0
 
-var si = 7
-var sj = 10
-var fi = 27
-var fj = 70
+var si = 3
+var sj = 7
+var fi = 20
+var fj = 45
 
 // used for checking mouse down to create wall
 isDown = false
@@ -516,7 +517,7 @@ function dijkstra(i, j, fi, fj) {
 
         // check if no path is possible
         if (current.dis == Number.MAX_VALUE) {
-            console.log("this happans")
+            // console.log("this happans")
             break
         }
 
@@ -532,7 +533,7 @@ function dijkstra(i, j, fi, fj) {
                 path.push(temp.previous)
                 temp = temp.previous
             }
-            console.log(path)
+            // console.log(path)
             break;
         }
 
