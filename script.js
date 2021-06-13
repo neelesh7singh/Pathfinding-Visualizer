@@ -345,7 +345,7 @@ function isValid_bfs(i, j, check) {
         if (check[a] == "R") j = j + 1
         if (check[a] == "L") j = j - 1
     }
-    if (i >= 0 && i < 30 && j >= 0 && j < 76) {
+    if (i >= 0 && i < 25 && j >= 0 && j < 50) {
         if (visited.indexOf(".node" + i + "j" + j) == -1 && !document.querySelector(".node" + i + "j" + j).classList.contains("wall")) {
             visited.push(".node" + i + "j" + j)
             return true
