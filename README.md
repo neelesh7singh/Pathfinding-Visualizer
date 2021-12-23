@@ -20,5 +20,4 @@ You can access it here (use Google Chrome!): https://neelesh7singh.github.io/Pat
 ![pf_pic2](https://user-images.githubusercontent.com/42792434/121154528-aaa29a80-c864-11eb-8720-76a267cb5059.png)
 
 
-PDF -> https://drive.google.com/file/d/1YiT0S97epN299AWoIR2i87zxVyDxScAH/view?usp=sharing <br/>
-DOC -> https://docs.google.com/document/d/1tpK2FAGhdrPjzrv-4SfLxTzEjotoia30/edit?rtpof=true&sd=true
+https://drive.google.com/file/d/1civw4exjdnZ1CrooEoyPTNtQgQl6siMt/view?usp=sharing
