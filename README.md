@@ -19,6 +19,3 @@ You can access it here (use Google Chrome!): https://neelesh7singh.github.io/Pat
 ![pf_pic1](https://user-images.githubusercontent.com/42792434/121154519-aa0a0400-c864-11eb-9524-733642785d9d.png)
 ![pf_pic2](https://user-images.githubusercontent.com/42792434/121154528-aaa29a80-c864-11eb-8720-76a267cb5059.png)
 
-
-Pdf -> https://drive.google.com/file/d/1civw4exjdnZ1CrooEoyPTNtQgQl6siMt/view?usp=sharing <br/>
-Doc -> https://docs.google.com/document/d/1iEE7UIDnty7WhI7DN5_H-z91APr2Q8Ur/edit?usp=sharing&ouid=116065834836001448688&rtpof=true&sd=true
